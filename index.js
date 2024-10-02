@@ -1,5 +1,5 @@
 // Assuming you have the project items already fetched and stored
-fetch('http://localhost:10000/api/items')
+fetch('http://localhost:3000/api/items')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
