@@ -1,0 +1,130 @@
+// Assuming you have the project items already fetched and stored
+fetch('http://localhost:3000/api/items')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json(); // Parse JSON response
+  })
+  .then(data => {
+    const leftColumn = document.getElementById('projects-item'); // Left column container
+    const rightColumn = document.querySelector('.cw-work-col.-right'); // Right column container
+
+    // Store the project items for filtering
+    const projectItems = [];
+
+    // Clear existing content
+    leftColumn.innerHTML = '';
+    rightColumn.innerHTML = '';
+
+    // Loop through each item and create the HTML structure
+    data.items.forEach((item, index) => {
+      const { fieldData } = item; // Get fieldData
+      const projectDataCat = fieldData['project-dat-cat']; // Get project categories
+
+      // Create the anchor element
+      const anchor = document.createElement('a');
+      anchor.className = 'cw-work-item';
+      anchor.href = `/projects/${fieldData.slug}/`; // Use the slug for the URL
+      anchor.setAttribute('data-cursor-text', 'Explore');
+      anchor.setAttribute('aria-label', fieldData.name); // Use the project name
+      anchor.setAttribute('data-cat', JSON.stringify(projectDataCat)); // Convert array to JSON string
+      anchor.style.cssText = `
+        opacity: 1;
+        translate: none;
+        rotate: none;
+        scale: none;
+        transform: translate(0px, 0px);
+        will-change: auto;
+      `;
+
+      // Create the inner content
+      const workPreviewDiv = document.createElement('div');
+      workPreviewDiv.className = 'cw-work-preview -sm';
+
+      const mediaDiv = document.createElement('div');
+      mediaDiv.className = 'cw-work-preview-media';
+
+      // Create the image
+      const picture = document.createElement('picture');
+      const img = document.createElement('img');
+      img.src = fieldData['project-thumbnail'].url; // Use the thumbnail URL
+      img.srcset = `${fieldData['project-thumbnail'].url} 2x`; // Set srcset for high-res image
+      img.alt = fieldData['project-sub-title']; // Set alt text
+
+      // Append the image to the picture
+      picture.appendChild(img);
+      mediaDiv.appendChild(picture);
+      workPreviewDiv.appendChild(mediaDiv);
+      anchor.appendChild(workPreviewDiv);
+
+      // Create the caption
+      const captionDiv = document.createElement('div');
+      captionDiv.className = 'cw-work-caption';
+      captionDiv.innerHTML = `<b>${fieldData.name}</b> – ${fieldData['project-sub-title']}`; // Set the caption text
+
+      anchor.appendChild(captionDiv);
+
+      // Append the item to the appropriate column based on index
+      if (index % 2 === 0) {
+        leftColumn.appendChild(anchor); // Append to left column for even indices
+      } else {
+        rightColumn.appendChild(anchor); // Append to right column for odd indices
+      }
+
+      // Store the anchor in the projectItems array for filtering
+      projectItems.push(anchor);
+    });
+
+    // Filter functionality
+    const filterLinks = document.querySelectorAll('.cw-modal_box-nav-item a');
+
+    filterLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = e.currentTarget.getAttribute('data-filter-target');
+          
+          console.log("Selected target:", target); // Log the selected target
+      
+          // Clear both left and right columns before re-adding filtered items
+          leftColumn.innerHTML = '';
+          rightColumn.innerHTML = '';
+      
+          let filteredItems;
+      
+          // Show all items if 'all' is selected
+          if (target === 'all') {
+            filteredItems = projectItems; // Show all items
+          } else {
+            filteredItems = projectItems.filter(item => {
+              const itemCategoriesStr = item.getAttribute('data-cat'); // Get categories from data attribute
+              if (!itemCategoriesStr) {
+                console.warn("No categories found for item:", item); // Warn if no categories
+                return false; // Exclude item if no categories
+              }
+        
+              const itemCategories = JSON.parse(itemCategoriesStr); // Parse JSON string to array
+              console.log("Item categories:", itemCategories); // Log item categories
+        
+              // Check if the item categories include the target category
+              return itemCategories.includes(target); // Only include matching items
+            });
+          }
+      
+          // Re-split filtered items between the left and right columns
+          filteredItems.forEach((item, index) => {
+            item.style.display = ''; // Ensure the item is visible
+            if (index % 2 === 0) {
+              leftColumn.appendChild(item); // Append to left column
+            } else {
+              rightColumn.appendChild(item); // Append to right column
+            }
+          });
+        });
+      });
+      
+      
+  })
+  .catch(err => {
+    console.error('Fetch error:', err); // Handle any errors
+  });
