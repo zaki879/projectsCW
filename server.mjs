@@ -6,7 +6,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Use CORS middleware
-app.use(cors());
+app.use(cors({
+  origin: "*"
+}));
 
 // Middleware to handle JSON requests
 app.use(express.json());
@@ -55,7 +57,3 @@ app.get('/api/items', async (req, res) => {
   }
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on ${PORT}`);
-});

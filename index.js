@@ -1,5 +1,5 @@
 // Assuming you have the project items already fetched and stored
-fetch('http://localhost:3000/api/items')
+fetch('https://zaki879.github.io/projectsCW/api/items')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
