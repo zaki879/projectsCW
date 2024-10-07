@@ -33,10 +33,20 @@ const options = {
         // Create the anchor element
         const anchor = document.createElement('a');
         anchor.className = 'cw-work-item';
-        anchor.href = `/projects/${fieldData.slug}/`; // Use the slug for the URL
+        anchor.href = `item.html?slug=${fieldData.slug}`;
         anchor.setAttribute('data-cursor-text', 'Explore');
-        anchor.setAttribute('aria-label', fieldData.name); // Use the project name
-        anchor.setAttribute('data-cat', JSON.stringify(projectDataCat)); // Convert array to JSON string
+        anchor.setAttribute('aria-label', fieldData.name);
+        anchor.setAttribute('data-cat', JSON.stringify(fieldData['project-dat-cat'] || []));
+    
+        // Add click event to anchor
+        anchor.addEventListener('click', (e) => {
+          e.preventDefault();
+          const slug = fieldData.slug;
+          setTimeout(() => {
+            window.location.href = `item.html?slug=${slug}`;
+          }, 500);
+        });
+    
         anchor.style.cssText = `
           opacity: 1;
           translate: none;
@@ -45,7 +55,15 @@ const options = {
           transform: translate(0px, 0px);
           will-change: auto;
         `;
-  
+    
+        // Add click event to anchor
+        anchor.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent default anchor behavior
+          const slug = fieldData.slug; // Store slug for use in the URL
+          history.pushState({ slug }, '', anchor.href); // Change the URL in the address bar
+          loadProject(slug); // Function to load project content
+        });
+    
         // Create the inner content
         const workPreviewDiv = document.createElement('div');
         workPreviewDiv.className = 'cw-work-preview -sm';
