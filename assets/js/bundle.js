@@ -28160,7 +28160,7 @@
                   }, {
                       scale: 1,
                       duration:0.5,
-                      delay:1.5,
+                      delay:3,
                       stagger: .06,
                       transformOrigin: "center center"
                   }, 0),
