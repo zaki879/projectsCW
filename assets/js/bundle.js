@@ -28159,8 +28159,8 @@
                       transformOrigin: "center center"
                   }, {
                       scale: 1,
-                      duration: 1,
-                      delay:0.7,
+                      duration:0.5,
+                      delay:1,
                       stagger: .06,
                       transformOrigin: "center center"
                   }, 0),
