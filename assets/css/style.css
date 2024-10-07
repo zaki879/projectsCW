@@ -3357,6 +3357,7 @@ p {
 .cw-modal_box-nav-item-title {
   display: inline-block;
   overflow: hidden;
+  line-height: 5rem;
 }
 
 .cw-modal_box-nav-item-title span {

@@ -102,52 +102,59 @@ const options = {
         projectItems.push(anchor);
       });
   
-      // Filter functionality
-      const filterLinks = document.querySelectorAll('.cw-modal_box-nav-item a');
-  
-      filterLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = e.currentTarget.getAttribute('data-filter-target');
-          
-          console.log("Selected target:", target); // Log the selected target
-  
-          // Clear both left and right columns before re-adding filtered items
-          leftColumn.innerHTML = '';
-          rightColumn.innerHTML = '';
-  
-          let filteredItems;
-  
-          // Show all items if 'all' is selected
-          if (target === 'all') {
-            filteredItems = projectItems; // Show all items
-          } else {
-            filteredItems = projectItems.filter(item => {
-              const itemCategoriesStr = item.getAttribute('data-cat'); // Get categories from data attribute
-              if (!itemCategoriesStr) {
-                console.warn("No categories found for item:", item); // Warn if no categories
-                return false; // Exclude item if no categories
-              }
-      
-              const itemCategories = JSON.parse(itemCategoriesStr); // Parse JSON string to array
-              console.log("Item categories:", itemCategories); // Log item categories
-  
-              // Check if the item categories include the target category
-              return itemCategories.includes(target); // Only include matching items
-            });
-          }
-  
-          // Re-split filtered items between the left and right columns
-          filteredItems.forEach((item, index) => {
-            item.style.display = ''; // Ensure the item is visible
-            if (index % 2 === 0) {
-              leftColumn.appendChild(item); // Append to left column
-            } else {
-              rightColumn.appendChild(item); // Append to right column
-            }
-          });
-        });
+     // Filter functionality
+const filterLinks = document.querySelectorAll('.cw-modal_box-nav-item a');
+const filterActiveText = document.querySelector('.cw-work-filter-active span'); // Get the span inside .cw-work-filter-active
+
+filterLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = e.currentTarget.getAttribute('data-filter-target');
+    const filterText = e.currentTarget.querySelector('span[data-text]').getAttribute('data-text'); // Get the filter text
+
+    console.log("Selected target:", target); // Log the selected target
+    console.log("Selected filter text:", filterText); // Log the selected filter text
+
+    // Update the active filter text
+    filterActiveText.textContent = filterText; // Update the .cw-work-filter-active span
+
+    // Clear both left and right columns before re-adding filtered items
+    leftColumn.innerHTML = '';
+    rightColumn.innerHTML = '';
+
+    let filteredItems;
+
+    // Show all items if 'all' is selected
+    if (target === 'all') {
+      filteredItems = projectItems; // Show all items
+    } else {
+      filteredItems = projectItems.filter(item => {
+        const itemCategoriesStr = item.getAttribute('data-cat'); // Get categories from data attribute
+        if (!itemCategoriesStr) {
+          console.warn("No categories found for item:", item); // Warn if no categories
+          return false; // Exclude item if no categories
+        }
+
+        const itemCategories = JSON.parse(itemCategoriesStr); // Parse JSON string to array
+        console.log("Item categories:", itemCategories); // Log item categories
+
+        // Check if the item categories include the target category
+        return itemCategories.includes(target); // Only include matching items
       });
+    }
+
+    // Re-split filtered items between the left and right columns
+    filteredItems.forEach((item, index) => {
+      item.style.display = ''; // Ensure the item is visible
+      if (index % 2 === 0) {
+        leftColumn.appendChild(item); // Append to left column
+      } else {
+        rightColumn.appendChild(item); // Append to right column
+      }
+    });
+  });
+});
+
   
     })
     .catch(err => {
