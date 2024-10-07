@@ -1634,7 +1634,7 @@ p {
   }
 }
 
-.cw-navbar.-open .cw-navbar-logo.-clone {
+ .cw-navbar-logo.-clone {
   opacity: 1;
   visibility: visible;
   transition-delay: 0s;
@@ -1645,66 +1645,7 @@ p {
   height: 100%;
 }
 
-.cw-navbar-navs {
-  display: none;
-}
 
-@media (min-width: 768px) {
-  .cw-navbar-navs {
-    display: block;
-    position: absolute;
-    top: 3.55rem;
-    right: 10rem;
-    z-index: 97;
-  }
-}
-
-.cw-navbar.-inverse .cw-navbar-navs {
-  color: #fff;
-}
-
-.cw-navbar-nav {
-  font-size: 2rem;
-  letter-spacing: -0.03em;
-  text-transform: lowercase;
-}
-
-.cw-navbar-toggle {
-  position: fixed;
-  top: 2.4rem;
-  right: 2.5rem;
-  z-index: 251;
-  color: #fff;
-  mix-blend-mode: exclusion;
-}
-
-@media (min-width: 768px) {
-  .cw-navbar-toggle {
-    top: 3.7rem;
-    right: 5rem;
-  }
-}
-
-@media (pointer: coarse) {
-  .cw-navbar-toggle {
-    position: absolute;
-    bottom: 0;
-    pointer-events: none;
-  }
-
-  .cw-navbar-toggle button {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 2.5rem;
-    pointer-events: auto;
-  }
-}
-
-@media (pointer: coarse) and (min-width: 768px) {
-  .cw-navbar-toggle button {
-    top: 4.5rem;
-  }
-}
 
 
 
@@ -4290,8 +4231,8 @@ p {
 
 .cw-entrylist-filter.-active span:before,
 .cw-menu.-open .cw-menu-toggle button.cw-entrylist-filter span:before,
-.cw-navbar.-open
-  .cw-navbar-toggle
+
+
   button.cw-entrylist-filter
   span:before {
   transform: scaleX(1);
