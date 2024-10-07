@@ -377,7 +377,6 @@ html:lang(ru) {
 }
 
 body {
-  color: #000;
   background: #fff;
   -webkit-tap-highlight-color: transparent;
   font-size: 1.4rem;
@@ -1929,6 +1928,7 @@ p {
   position: fixed;
   top: 0;
   left: 0;
+  color: #4c00ff;
   z-index: 500;
   contain: layout style size;
   pointer-events: none;
@@ -2093,7 +2093,7 @@ p {
 }
 
 .cw-cursor.-inverse .cw-cursor-text {
-  color: #000;
+  color: #ff0000;
 }
 
 .cw-cursor-media {
@@ -4949,7 +4949,7 @@ p {
 }
 
 .cw-featured-fill.-inverse {
-  background: #000;
+  background: #4c00ff;
 }
 
 .cw-featured-fill.-primary {
@@ -5133,7 +5133,7 @@ p {
 
 .cw-featured-preview-tag {
   padding: 1.1rem 1.3rem;
-  color: #000;
+  color: #4c00ff;
   background: #fff;
   border-radius: 100px;
   font-weight: 500;
@@ -5150,7 +5150,7 @@ p {
 
 .cw-featured-preview-tags.-inverse .cw-featured-preview-tag {
   color: #fff;
-  background: #000;
+  background: #4c00ff;
 }
 
 .cw-featured-caption {
@@ -5314,7 +5314,7 @@ p {
 }
 
 .cw-summary-fill.-inverse {
-  background: #000;
+  background: #4c00ff;
 }
 
 .cw-summary-fill.-primary {
@@ -5938,7 +5938,7 @@ p {
 }
 
 .cw-overview-author-name b {
-  color: #000;
+  color: #4c00ff;
   font-weight: 400;
 }
 
@@ -6492,7 +6492,7 @@ blockquote .cw-overview-text p:last-of-type:after {
 .cw-outro {
   overflow: hidden;
   color: #fff;
-  background: #000;
+  background: #4c00ff;
 }
 
 .cw-outro-content {
@@ -6621,7 +6621,7 @@ blockquote .cw-overview-text p:last-of-type:after {
   left: 0;
   right: 0;
   bottom: 0;
-  color: #000;
+  color: #4c00ff;
   pointer-events: none;
   touch-action: none;
 }
@@ -6739,7 +6739,7 @@ blockquote .cw-overview-text p:last-of-type:after {
   position: relative;
   overflow: hidden;
   color: #fff;
-  background: #000;
+  background: #4c00ff;
 }
 
 .cw-footer-bg {
