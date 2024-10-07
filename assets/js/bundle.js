@@ -28119,6 +28119,11 @@
                   this.logo = this.el.querySelector(".cw-navbar-logo"),
                   this.logoPath = this.logo.querySelectorAll("path"),
                   this.nav = this.el.querySelectorAll(".cw-navbar-nav"),
+                  this.toggleEl = this.el.querySelector(".cw-navbar-toggle"),
+                  this.toggleBtn = this.toggleEl.querySelector("button"),
+                  this.menu = this.el.querySelector(".cw-navbar-menu"),
+                  this.menuTop = this.el.querySelector(".cw-navbar-menu-top"),
+                  this.menuBottom = this.el.querySelector(".cw-navbar-menu-bottom"),
                   this.hideTl = this.tlHide(),
                   this.showTl = this.tlShow(),
                   this.opened = !1
@@ -28159,15 +28164,46 @@
                       transformOrigin: "center center"
                   }, {
                       scale: 1,
-                      duration:0.5,
-                      delay:3.5,
+                      duration: .4,
                       stagger: .06,
                       transformOrigin: "center center"
                   }, 0),
+                  e.set([this.nav, this.toggleEl], {
+                      willChange: "transform"
+                  }),
+                  e.fromTo([this.nav, this.toggleEl], {
+                      y: 30,
+                      opacity: 0,
+                      clipPath: "inset(0 0 100% 0)"
+                  }, {
+                      y: 0,
+                      opacity: 1,
+                      clipPath: "inset(0 0 0% 0)",
+                      duration: .8,
+                      stagger: .1,
+                      clearProps: "y,opacity,clipPath"
+                  }, 0),
+                  e.set([this.nav, this.toggleEl], {
+                      willChange: "auto"
+                  }),
                   e
               }
               bindToggle() {
-             
+                  this.toggleBtn.addEventListener("click", ( () => this.toggle())),
+                  this.backdrop.addEventListener("click", ( () => this.hide())),
+                  this.el.addEventListener("mouseenter", ( () => {
+                      var e;
+                      this.el.classList.contains("-inverse") && (null == (e = this.cursor.follower) || e.addState("-inverse"))
+                  }
+                  )),
+                  window.addEventListener("keyup", (e => {
+                      "Escape" === e.key && this.toggle()
+                  }
+                  )),
+                  Qa.isTouch || Al(this.toggleBtn, {
+                      leaveSpeed: 2,
+                      leaveEase: "elastic.out(1,0.25)"
+                  })
               }
               toggle() {
                   this.opened ? this.hide() : this.show()
@@ -28193,7 +28229,11 @@
                       paused: !0,
                       immediateRender: !1
                   });
-                  return e.set(this.backdrop, {
+                  return e.set(this.menu, {
+                      display: "grid",
+                      pointerEvents: "auto"
+                  }),
+                  e.set(this.backdrop, {
                       display: "block",
                       pointerEvents: "auto"
                   }),
@@ -28202,7 +28242,28 @@
                   }, {
                       opacity: 1,
                       duration: 1
-                  }, 0),              
+                  }, 0),
+                  e.fromTo(this.menu, {
+                      clipPath: "inset(0 0 0 100%)"
+                  }, {
+                      clipPath: "inset(0 0 0 0%)",
+                      duration: 1,
+                      ease: "power4.out",
+                      clearProps: "clipPath"
+                  }, 0),
+                  e.fromTo([this.menuTop, this.menuBottom], {
+                      xPercent: 50
+                  }, {
+                      xPercent: 0,
+                      duration: 1,
+                      ease: "expo.out"
+                  }, 0),
+                  e.fromTo([this.menuTop, this.menuBottom], {
+                      opacity: 0
+                  }, {
+                      opacity: 1,
+                      duration: .5
+                  }, .15),
                   e
               }
               tlHide() {
@@ -28210,7 +28271,10 @@
                       paused: !0,
                       immediateRender: !1
                   });
-                  return e.set(this.backdrop, {
+                  return e.set(this.menu, {
+                      pointerEvents: "none"
+                  }),
+                  e.set(this.backdrop, {
                       pointerEvents: "none"
                   }),
                   e.fromTo(this.backdrop, {
@@ -28219,7 +28283,28 @@
                       opacity: 0,
                       duration: .4
                   }, 0),
-               
+                  e.fromTo(this.menu, {
+                      clipPath: "inset(0 0 0 0%)"
+                  }, {
+                      clipPath: "inset(0 0 0 100%)",
+                      duration: .4,
+                      clearProps: "clipPath"
+                  }, 0),
+                  e.fromTo([this.menuTop, this.menuBottom], {
+                      xPercent: 0
+                  }, {
+                      xPercent: 20,
+                      duration: .4
+                  }, 0),
+                  e.fromTo([this.menuTop, this.menuBottom], {
+                      opacity: 1
+                  }, {
+                      opacity: 0,
+                      duration: .1
+                  }, 0),
+                  e.set(this.menu, {
+                      display: "none"
+                  }),
                   e.set(this.backdrop, {
                       display: "none"
                   }),
