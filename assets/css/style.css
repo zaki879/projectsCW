@@ -178,7 +178,6 @@ main {
 }
 
 h1 {
-  font-size: 2em;
   margin: 0.67em 0;
 }
 
@@ -377,9 +376,7 @@ html:lang(ru) {
 }
 
 body {
-  background: #fff;
   -webkit-tap-highlight-color: transparent;
-  font-size: 1.4rem;
 }
 
 .modal body,
